@@ -1,8 +1,7 @@
 # prx — PROSPECT eXplore
 
 > [!NOTE]
-> **This is a personal experiment, not an official PROSPECT project.**
-> prx is an independent exploration by a Broad Institute employee. It is not maintained, endorsed, or supported by the PROSPECT team or Bond et al. Use the upstream publications and datasets for authoritative data and documentation.
+> Personal experiment — not an official PROSPECT project.
 
 An experiment in agent-driven scientific data exploration, built around [PROSPECT](https://doi.org/10.1038/s41586-019-1315-z) chemical-genetics data and [Bond et al. 2025](https://doi.org/10.1038/s41467-025-64662-x) — the reference-based MOA inference method that turns PROSPECT primary-screen data into mechanism-of-action assignments.
 
