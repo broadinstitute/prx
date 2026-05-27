@@ -1,7 +1,7 @@
 # prx — PROSPECT eXplore
 
 > [!NOTE]
-> Personal experiment — not an official PROSPECT project.
+> Part of the [jx](https://github.com/broadinstitute/jx) experiment — not an official PROSPECT project.
 
 An experiment in agent-driven scientific data exploration, built around [PROSPECT](https://doi.org/10.1038/s41586-019-1315-z) chemical-genetics data and [Bond et al. 2025](https://doi.org/10.1038/s41467-025-64662-x) — the reference-based MOA inference method that turns PROSPECT primary-screen data into mechanism-of-action assignments.
 
