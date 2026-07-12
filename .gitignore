@@ -28,9 +28,9 @@ marimo/_lsp/
 # Notebook-fetched data (pooch caches, derived tables, etc.)
 data/
 
-# Third-party skills (installed via npx skills add)
-.claude/skills/marimo-pair/
-.claude/skills/marimo-notebook/
+# Installed skills: recorded in the tracked skills-lock.json, NOT vendored.
+.agents/
+.claude/skills/*
 
 # Misc
 *.bak

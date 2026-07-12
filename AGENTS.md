@@ -5,7 +5,8 @@ This is the public, runnable catalog of marimo notebooks for PROSPECT chemical-g
 Planning, progress, and dated artifacts live in the sibling private repo `../prx-dev/`; cross-instance coordination lives in the primary [`jx`](https://github.com/broadinstitute/jx) repo.
 
 `README.md` is the human entry point.
-The skills under `.claude/skills/` are the operational entry points: `getting-started` for first-run setup and `compose-notebook` for adding a new analysis.
+This catalog uses the shared [vignette-catalog-skills](https://github.com/carpenter-singh-lab/vignette-catalog-skills) (`vignette-catalog-setup` for first-run setup, `vignette-catalog-compose-notebook` for adding or composing analyses); its specifics live in `catalog.toml`.
+The skills are installed via `npx skills add carpenter-singh-lab/vignette-catalog-skills --agent claude-code -y`, recorded in the tracked `skills-lock.json`, but **not vendored** - `.claude/skills/*` is gitignored, so restore them on a fresh clone before use.
 
 ## Launching notebooks
 
@@ -87,4 +88,4 @@ Almost every PROSPECT request should compose existing helpers:
 - same-MOA CGI signal after chemistry control -> `nb05_collapse_diagnostic`
 - PCL rarefaction and CGI-shape diversity -> `nb06_cgi_shape_diversity`
 
-Read `.claude/skills/compose-notebook/SKILL.md` before writing new analysis code.
+Read the installed `vignette-catalog-compose-notebook` skill (and `catalog.toml`'s `[[vignette]]` table) before writing new analysis code.

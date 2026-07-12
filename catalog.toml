@@ -1,0 +1,46 @@
+name = "prx"
+description = "PROSPECT eXplore - agent-composable marimo notebooks over Bond et al. 2025 PROSPECT chemical-genetics data, fetched from Figshare with pooch"
+
+[data]
+surface = "pooch"  # rest | duckdb | pooch | files
+version = ""       # no single dataset release handle: the Bond et al. 2025 bundle
+                   # (figshare doi 10.6084/m9.figshare.28373561) is a set of individual
+                   # files, each pinned by its own SHA-256 in the notebooks' KNOWN_HASHES /
+                   # *_ARCHIVE_HASH globals rather than by one version string.
+cache = "data/external/figshare_28373561/"  # pooch caches fetched Figshare files here (gitignored under data/)
+
+[auth]
+env_var = ""       # public Figshare downloads need no token
+
+[getting_started]
+first_notebook = "nb01_orientation.py"
+
+[[vignette]]
+notebook = "nb01_orientation.py"
+helpers  = []
+does     = "Orientation: working questions, foundational papers (PROSPECT, Bond et al. 2025), public data resources, and first concrete next steps. Markdown landing page; read first"
+
+[[vignette]]
+notebook = "nb02_figshare_pull.py"
+helpers  = ["figshare_url", "fetch", "parse_gmt"]
+does     = "Pulls the Bond et al. 2025 Figshare bundle (small annotation/cluster archives), SHA-256 pinned, and builds the reference-set spine: every condition joined to its MOA and PCL cluster (clusters_tbl, moas_long, pcls_long)"
+
+[[vignette]]
+notebook = "nb03_hypomorph_correlation.py"
+helpers  = ["fetch_sgr_archive", "parse_gct", "strain_correlation"]
+does     = "Pulls the sGR GCT matrix (9,427 conditions x 340 strains) from the Figshare bundle, parses GCT v1.3, and computes the 340x340 strain-strain Pearson - the strain-axis view of the CGI space"
+
+[[vignette]]
+notebook = "nb04_pretrained_baseline.py"
+helpers  = ["fetch_clusters_archive", "per_compound_labels", "compound_cgi_profiles", "compound_condition_features", "smiles_to_morgan", "loocv_1nn_predictions", "loocv_per_condition_predictions", "score_predictions", "same_moa_tanimoto_distribution"]
+does     = "Structure-only vs CGI-profile 1-NN baselines for MOA classification on the Bond reference set under leave-one-out, plus a same-MOA vs cross-MOA Tanimoto diagnostic. Adds rdkit + scikit-learn to the dep set"
+
+[[vignette]]
+notebook = "nb05_collapse_diagnostic.py"
+helpers  = ["pairwise_tanimoto", "pairwise_pearson", "pair_table"]
+does     = "For every pair of Bond reference compounds, contrasts pairwise Tanimoto (Morgan FPs) against pairwise Pearson (median CGI profiles), stratified by same vs cross MOA - does same-MOA CGI similarity survive after controlling for chemistry? Reuses nb03 + nb04 helpers"
+
+[[vignette]]
+notebook = "nb06_cgi_shape_diversity.py"
+helpers  = ["fetch_pcls_archive", "pcl_compound_table", "rarefaction", "rarefaction_envelope", "hill_numbers"]
+does     = "Public-data floor for CGI-shape diversity: joins Bond's PCL labels (1,140 PCLs) to compound metadata, runs rarefaction over PCL coverage at condition and compound granularity, and reports Hill numbers (N0/N1/N2). Reuses nb02 (parse_gmt) + nb04 (fetch_clusters_archive)"
