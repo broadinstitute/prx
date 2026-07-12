@@ -109,7 +109,7 @@ def fetch_pcls_archive() -> Path:
     archive = Path(
         pooch.retrieve(
             url=f"https://ndownloader.figshare.com/files/{PCLS_FILE_ID}",
-            known_hash=PCLS_ARCHIVE_HASH,
+            known_hash=PCLS_ARCHIVE_HASH,  # pins raw .tar.gz bytes; safe because Figshare serves byte-stable statics. For a non-deterministic archive pin the extracted content instead (see data.md).
             fname=PCLS_ARCHIVE_NAME,
             path=FIGSHARE_DIR,
             progressbar=True,

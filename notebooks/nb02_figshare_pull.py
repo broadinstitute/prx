@@ -109,7 +109,7 @@ def fetch(slug: str, files: dict, known_hashes: dict[str, str]) -> Path:
     return Path(
         pooch.retrieve(
             url=figshare_url(file_id),
-            known_hash=known_hashes.get(slug),
+            known_hash=known_hashes[slug],  # KeyError on an unpinned slug: never fetch without a pin
             fname=filename,
             path=FIGSHARE_DIR,
             progressbar=True,
