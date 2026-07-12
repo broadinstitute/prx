@@ -75,7 +75,7 @@ def fetch_sgr_archive() -> Path:
     archive = Path(
         pooch.retrieve(
             url=f"https://ndownloader.figshare.com/files/{SGR_FILE_ID}",
-            known_hash=SGR_ARCHIVE_HASH,
+            known_hash=SGR_ARCHIVE_HASH,  # pins raw .tar.gz bytes; safe because Figshare serves byte-stable statics. For a non-deterministic archive pin the extracted content instead (see data.md).
             fname=SGR_ARCHIVE_NAME,
             path=FIGSHARE_DIR,
             progressbar=True,
