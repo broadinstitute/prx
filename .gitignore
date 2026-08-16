@@ -31,6 +31,7 @@ data/
 # Installed skills: recorded in the tracked skills-lock.json, NOT vendored.
 .agents/
 .claude/skills/*
+.claude/worktrees/
 
 # Misc
 *.bak
