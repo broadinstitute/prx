@@ -1,7 +1,7 @@
 # prx — PROSPECT eXplore
 
 > [!NOTE]
-> Part of the [jx](https://github.com/broadinstitute/jx) experiment — not an official PROSPECT project.
+> Part of the [jx](https://github.com/broadinstitute/jx) experiment - not an official PROSPECT project.
 
 An experiment in agent-driven scientific data exploration, built around [PROSPECT](https://doi.org/10.1038/s41586-019-1315-z) chemical-genetics data and [Bond et al. 2025](https://doi.org/10.1038/s41467-025-64662-x) — the reference-based MOA inference method that turns PROSPECT primary-screen data into mechanism-of-action assignments.
 
@@ -37,11 +37,12 @@ The skill stores are gitignored, so a fresh clone has only `skills-lock.json`; r
 
 ```bash
 uv --version  # or: curl -LsSf https://astral.sh/uv/install.sh | sh
-npx skills add carpenter-singh-lab/vignette-catalog-skills --agent claude-code -y
-npx skills add marimo-team/marimo-pair --agent claude-code -y
+npx skills@1.5.20 add carpenter-singh-lab/vignette-catalog-skills -s vignette-catalog-compose-notebook -s vignette-catalog-scaffold -a claude-code -a codex -y
+npx skills@1.5.20 add marimo-team/marimo-pair -s marimo-pair -a claude-code -a codex -y
 ```
 
-Then open Claude Code in this repo and ask to *get started* - the `vignette-catalog-setup` skill installs prereqs ([uv](https://docs.astral.sh/uv/) and the [marimo-pair](https://github.com/marimo-team/marimo-pair) skill), launches `nb01_orientation` in a live marimo kernel, and hands off to `vignette-catalog-compose-notebook` for the actual analysis.
+Then open Claude Code or Codex in this repo and ask to *get started*.
+The `vignette-catalog-compose-notebook` skill launches `nb01_orientation` in a live marimo kernel and handles later analysis in the same workflow.
 
 ## License
 

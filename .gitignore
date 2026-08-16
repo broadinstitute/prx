@@ -37,6 +37,3 @@ data/
 
 # remember plugin session-save logs
 .remember/
-
-# Local red-team review cache written by the Stop hook; never commit.
-.claude/.red-team-cache/

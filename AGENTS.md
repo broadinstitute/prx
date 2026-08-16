@@ -5,8 +5,8 @@ This is the public, runnable catalog of marimo notebooks for PROSPECT chemical-g
 Planning, progress, and dated artifacts live in the sibling private repo `../prx-dev/`; cross-instance coordination lives in the primary [`jx`](https://github.com/broadinstitute/jx) repo.
 
 `README.md` is the human entry point.
-This catalog uses the shared [vignette-catalog-skills](https://github.com/carpenter-singh-lab/vignette-catalog-skills) (`vignette-catalog-setup` for first-run setup, `vignette-catalog-compose-notebook` for adding or composing analyses); its specifics live in `catalog.toml`.
-The skills are installed via `npx skills add carpenter-singh-lab/vignette-catalog-skills --agent claude-code -y`, recorded in the tracked `skills-lock.json`, but **not vendored** - `.claude/skills/*` is gitignored, so restore them on a fresh clone before use.
+This catalog uses the shared [vignette-catalog-skills](https://github.com/carpenter-singh-lab/vignette-catalog-skills), with `vignette-catalog-compose-notebook` handling setup, execution, and composition; its specifics live in `catalog.toml`.
+The skills are recorded in the tracked `skills-lock.json` but not vendored; restore them with the exact commands in `README.md` after cloning.
 
 ## Launching notebooks
 
@@ -32,24 +32,16 @@ PORT=$(python -c "import socket; s=socket.socket(); s.bind(('127.0.0.1',0)); pri
 env -u PYTHONPATH uvx marimo edit --sandbox --headless --no-token --port $PORT notebooks/nbNN_*.py
 ```
 
-Then run static checks:
+Then run the installed skill's final gate:
 
 ```bash
-uvx ruff check notebooks/
-uvx ruff format notebooks/
-uvx marimo check notebooks/*.py
+VALIDATE=$(ls .agents/skills/vignette-catalog-compose-notebook/scripts/validate-notebook.sh .claude/skills/vignette-catalog-compose-notebook/scripts/validate-notebook.sh 2>/dev/null | head -1)
+bash "$VALIDATE" notebooks/nbNN_*.py
 ```
 
-**Then, last, refresh the molab session snapshot** for any notebook whose source changed in this task:
-
-```bash
-env -u PYTHONPATH uvx marimo export session --sandbox notebooks/nbNN_*.py
-```
-
-Order matters.
+The validator runs stable static checks, formatting, cold execution, and refreshes the molab session snapshot last.
 Session snapshots store a `code_hash` per cell, and molab attaches the stored output only when the snapshot hash matches the source cell.
-Any later edit to the notebook source - including a `ruff format` whitespace pass - shifts every `code_hash` and silently strips outputs in the public molab preview.
-Always regenerate snapshots **after** the final formatter / source edit, and commit the regenerated `.json` files in the same change that touched the `.py` files.
+Run it after the final source edit, and commit regenerated `.json` files with changed notebooks.
 
 ## Architecture
 
